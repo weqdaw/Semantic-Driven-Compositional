@@ -71,3 +71,9 @@ artifacts/round2_ablations/
 .e1-backup/
 artifacts/e1_concepts/
 reports/e1-*/
+
+# E1.1 local snapshots, derived banks, frame audit and reports
+.e11-backup/
+artifacts/e11_diagnostics/
+data/e11_audits/
+reports/e11-*/

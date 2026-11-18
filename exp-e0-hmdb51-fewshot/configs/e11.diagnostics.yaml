@@ -1,0 +1,12 @@
+experiment_id: e11_geometry_fusion_diagnostics
+version: 1
+rotation_seeds: [0, 1, 2, 3, 4]
+geometry: common_right_orthogonal_E_times_Q
+fusion: separate_block_l2_equal_energy_then_final_l2
+primary_shot: 3
+final_test_enabled: false
+audit:
+  seed: 20261118
+  videos: 10
+  frame_positions_zero_based: [2, 7, 13]
+  concept_ids: [pose01, pose02, pose03, pose10, pose11, pose12]

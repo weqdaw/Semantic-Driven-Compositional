@@ -94,7 +94,7 @@ py -3.11 -m venv .venv
 & ./.venv/Scripts/python.exe -m pytest -q
 ```
 
-本机最近一次完整实现验收为**138项测试通过**。测试使用临时合成输入验证流程，不会启动正式实验或生成真实实验分数。
+本机最近一次完整实现验收为**146项测试通过**（包含E1.1）。测试使用临时合成输入验证流程，不会启动正式实验或生成真实实验分数。
 
 ## 数据与配置
 
@@ -121,6 +121,7 @@ Copy-Item configs/paths.local.example.yaml configs/paths.local.yaml
 & ./.venv/Scripts/python.exe scripts/07_round2.py --help
 & ./.venv/Scripts/python.exe scripts/08_round2_ablations.py --help
 & ./.venv/Scripts/python.exe scripts/09_e1_concepts.py --help
+& ./.venv/Scripts/python.exe scripts/10_e11_diagnostics.py --help
 ```
 
 | 阶段 | 入口与顺序 | 说明 |
@@ -129,6 +130,7 @@ Copy-Item configs/paths.local.example.yaml configs/paths.local.yaml
 | E0来源分组 | 07_round2.py：audit-sources → freeze-split → sample-supports → prepare-features → run → summarize | 未解决的来源审核会阻断冻结 |
 | E0补充消融 | 08_round2_ablations.py：check → prepare → run → summarize | 复用60组基线，新增180组 |
 | E1概念基线 | 09_e1_concepts.py：check → prepare → run → summarize | 复用60组基线，新增360组 |
+| E1.1概念诊断 | 10_e11_diagnostics.py：check → export-audit → prepare → run → summarize | G1/VC1/VG1新增330组，复用V1/C1共60组；尚未正式运行 |
 
 E1的`check`只读核验；`prepare`编码固定文本并派生缓存，无图像重编码或分类器拟合；`run`才执行任务拟合；`summarize`检查完整网格、支持与开发身份、文件哈希、保存模型前向输出并逐预测复算指标。没有隐式启动或最终测试入口。
 
@@ -144,5 +146,7 @@ E1的`check`只读核验；`prepare`编码固定文本并派生缓存，无图�
 - [E1概念基线指南](exp-e0-hmdb51-fewshot/docs/E1_CONCEPT_GUIDE.md)
 - [16个概念描述](exp-e0-hmdb51-fewshot/configs/e1.concepts.v1.yaml)
 - [E1实现验收](exp-e0-hmdb51-fewshot/docs/E1_VERIFICATION.md)
+- [E1.1几何/融合诊断与启动说明](exp-e0-hmdb51-fewshot/docs/E11_GUIDE.md)
+- [E1.1实现验收](exp-e0-hmdb51-fewshot/docs/E11_VERIFICATION.md)
 
 详细原始报告、逐视频预测、审核材料及独立分析保存在本地项目与研究知识库；公开仓库提供不含本机路径记录的阶段摘要。数据与上游软件许可证以原发布方为准，本次未替项目另行指定开源许可证。
