@@ -1,0 +1,17 @@
+# Local publication tooling
+.github-publish/
+
+# Never publish model/data binaries or credentials
+*.npz
+*.npy
+*.pt
+*.pth
+*.safetensors
+.env
+.env.*
+!.env.example
+
+# Machine-specific execution and provenance records
+exp-e0-hmdb51-fewshot/docs/E0_RUN_RECORD.json
+exp-e0-hmdb51-fewshot/docs/provenance/
+exp-e0-hmdb51-fewshot/AGENTS.md

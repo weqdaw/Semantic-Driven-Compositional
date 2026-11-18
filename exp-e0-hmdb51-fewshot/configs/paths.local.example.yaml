@@ -1,0 +1,7 @@
+# Copy to paths.local.yaml and set your own absolute dataset path.
+dataset_root: "F:/datasets/hmdb51"
+annotations_root: "data/annotations/testTrainMulti_7030_splits"
+weights_file: "artifacts/weights/ViT-B-32.pt"
+feature_cache_root: "artifacts/features"
+run_root: "runs"
+report_root: "reports"

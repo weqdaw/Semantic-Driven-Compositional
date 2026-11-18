@@ -1,0 +1,16 @@
+experiment_id: e1_hmdb51_concept_baselines
+version: "1.0"
+evaluation_stage: development
+final_test_enabled: false
+concept_score: cosine_float64_to_float32_without_frame_renormalization
+pooling: mean_population_std_and_optional_6_5_5_segment_means
+block_l2_normalize: true
+final_l2_normalize: true
+epsilon: 0.000001
+random_projection:
+  algorithm: pcg64_normal_unit_rows_v1
+  seeds: [0, 1, 2, 3, 4]
+aggregation: mean_projection_metrics_within_support_then_support_sample_sd
+audit_template:
+  n_development_videos: 30
+  seed: 20261118

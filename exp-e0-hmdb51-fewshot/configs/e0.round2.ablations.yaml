@@ -1,0 +1,18 @@
+# Inherit the reference batch's split, K, support IDs and ridge settings.
+experiment_id: e0_hmdb51_round2_ablations
+protocol_version: "0.3"
+evaluation_stage: development
+final_test_enabled: false
+representations:
+  V1_repeat: [mean, population_std, mean, mean, mean]
+  V1_shuffle: [mean, population_std, early_mean, middle_mean, late_mean]
+temporal_segments: [6, 5, 5]
+block_l2_normalize: true
+final_l2_normalize: true
+epsilon: 0.000001
+statistics_dtype: float64
+output_dtype: float32
+shuffle:
+  algorithm: sha256_video_seed_pcg64_permutation_v1
+  seeds: [0, 1, 2, 3, 4]
+aggregation: mean_shuffle_metrics_within_support_then_support_sample_sd

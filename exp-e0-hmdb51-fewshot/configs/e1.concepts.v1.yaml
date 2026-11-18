@@ -1,0 +1,71 @@
+catalog_id: hmdb51_visible_pose_v1
+version: "1.0"
+status: fixed_development_descriptions_not_ground_truth
+provenance: assistant_authored_from_class_names_and_general_pose_knowledge
+development_context: E0_aggregate_results_known_no_E1_score_selection
+final_test_used: false
+concepts:
+  - id: pose01
+    label_zh: 双手在胸前靠近
+    description_en: a photo of a person with both hands close together in front of the chest
+    visibility_note: 需双手可见；接近不等于正在拍手
+  - id: pose02
+    label_zh: 双手在身前分开
+    description_en: a photo of a person with both hands apart in front of the body
+    visibility_note: 需双手可见；静态姿态不能证明动作方向
+  - id: pose03
+    label_zh: 一只手高于肩部
+    description_en: a photo of a person with one hand raised above shoulder level
+    visibility_note: 需手与肩部可见；不等于正在挥手
+  - id: pose04
+    label_zh: 一只手臂向侧面伸展
+    description_en: a photo of a person with one arm extended sideways
+    visibility_note: 侧身和遮挡可能无法判断
+  - id: pose05
+    label_zh: 弯曲手臂且手靠近头部
+    description_en: a photo of a person with a bent arm and a hand near the head
+    visibility_note: 手与头部重叠时不能仅凭相似度认定存在
+  - id: pose06
+    label_zh: 双臂低于肩部
+    description_en: a photo of a person with both arms lowered below the shoulders
+    visibility_note: 需双臂可见；不作为其他概念的强制互补
+  - id: pose07
+    label_zh: 双腿分开
+    description_en: a photo of a person with the legs spread apart
+    visibility_note: 画面裁剪或多人遮挡时可标无法判断
+  - id: pose08
+    label_zh: 双腿靠近
+    description_en: a photo of a person with the legs close together
+    visibility_note: 不将下肢不可见当成不存在
+  - id: pose09
+    label_zh: 一腿抬起而另一腿伸展
+    description_en: a photo of a person with one leg lifted and the other leg extended
+    visibility_note: 可出现在多类行为中；不是类别充分条件
+  - id: pose10
+    label_zh: 双脚离地
+    description_en: a photo of a person with both feet off the ground
+    visibility_note: 必须看清双脚与地面；单帧不能证明跳跃事件
+  - id: pose11
+    label_zh: 一只脚接触地面
+    description_en: a photo of a person with one foot touching the ground and the other foot raised
+    visibility_note: 需脚部及地面可见；不区分跑与走的全部机制
+  - id: pose12
+    label_zh: 双脚接触地面
+    description_en: a photo of a person with both feet touching the ground
+    visibility_note: 原生中心裁剪可能移除脚部
+  - id: pose13
+    label_zh: 躯干直立
+    description_en: a photo of a person with an upright torso
+    visibility_note: 摄像机倾斜、侧视和遮挡影响判断
+  - id: pose14
+    label_zh: 躯干向前倾
+    description_en: a photo of a person with the torso leaning forward
+    visibility_note: 相对身体朝向描述；不是运动速度真值
+  - id: pose15
+    label_zh: 屈膝降低身体
+    description_en: a photo of a person crouching with bent knees
+    visibility_note: 需膝部与躯干可见
+  - id: pose16
+    label_zh: 双臂伸向头顶上方
+    description_en: a photo of a person with both arms extended above the head
+    visibility_note: 画面边缘可能截断手臂；存在与否需画面审核

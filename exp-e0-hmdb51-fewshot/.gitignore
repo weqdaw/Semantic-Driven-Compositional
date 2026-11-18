@@ -1,0 +1,73 @@
+# Local paths, credentials and environment
+configs/paths.local.yaml
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+
+# Read-only external data must never be copied into tracked files
+*.avi
+*.mp4
+*.mov
+*.mkv
+*.rar
+*.zip
+*.tar
+*.tar.gz
+
+# Generated or downloaded content; keep directory documentation
+data/annotations/*
+!data/annotations/.gitkeep
+data/manifests/*
+!data/manifests/.gitkeep
+data/support_sets/*
+!data/support_sets/.gitkeep
+artifacts/weights/*
+!artifacts/weights/.gitkeep
+artifacts/features/*
+!artifacts/features/.gitkeep
+runs/*
+!runs/README.md
+!runs/.gitkeep
+reports/figures/*
+!reports/figures/.gitkeep
+reports/tables/*
+!reports/tables/.gitkeep
+reports/e0-results.md
+reports/e0-v0-*/
+reports/summary.json
+reports/summary.csv
+reports/learning_curve.png
+reports/confusion_matrices.png
+reports/local_run.json
+reports/reproducibility_check.json
+*.egg-info/
+build/
+dist/
+
+# Additive round2 local review, cache, outputs and pre-edit backup
+.round2-backup/
+data/source_groups/
+artifacts/round2_features/
+reports/e0-round2-*/
+reports/round2-execution-*/
+reports/round2_latest.json
+reports/round2_preparation.json
+
+# Supplementary controls: local backup and generated feature bank
+.ablation-backup/
+artifacts/round2_ablations/
+
+# E1 local backups, derived concept banks and generated reports
+.e1-backup/
+artifacts/e1_concepts/
+reports/e1-*/
