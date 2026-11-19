@@ -77,3 +77,18 @@ reports/e1-*/
 artifacts/e11_diagnostics/
 data/e11_audits/
 reports/e11-*/
+
+# E1.2 local snapshots and generated scale/audit reports
+.e12-backup/
+artifacts/e12_support_scale/
+reports/e12-*/
+
+# E1.3 private preparation, code-change backup and reports
+.e13-backup/
+artifacts/e13_class_text/
+reports/e13-*/
+
+# E1.4 local snapshots, backups and generated reports
+.e14-backup/
+artifacts/e14_text_anchor/
+reports/e14-*/

@@ -111,3 +111,29 @@ features.npz包含Q(5,d,d) float64，D(5,m,d)、V1(n,5d)、G1(5,n,5m)、VC1(n,5d
 新增330组：G1/VG1各150、VC1为30。rotation_seed与support_seed分开；VC1的rotation_seed为null/CSV空值。每组保存预测/模型/指标/支持表与哈希，汇总核验完整网格、原真值/来源、特征库及保存ridge的前向得分。复用V1/C1各30，报告合计390组。随机旋转先在支持集合内平均指标，再跨10组支持统计；另保留每旋转与19,500条重复预测。
 
 审核材料独立导出：固定10段dev视频×缓存位置2/7/13×六概念=180空白判断行；验证原视频SHA、别名、解码器、frame_indices及原生裁剪身份，保存原图/crop PNG。judgment只允许人工填写present/absent/uncertain；导出清单human_review_completed=false，不表示已审核。含类名路径不宣称严格盲审。完整操作与解释边界见[E1.1指南](E11_GUIDE.md)。
+
+## 12. E1.2 支持集尺度匹配契约
+
+独立脚本11与固定e12.support-scale.yaml，仅3-shot×10支持集合。新增240组：V1_lambda2/SV1/SC1/SVC1各10，SG1/SR1/SVG1/SVR1各50。除原V1_lambda2用lambda2外，其余lambda1；控制种子与支持种子分列。复用同一E1.1与E1祖先的原3-shot V1/C1/G1/R1/VC1/VG1共180组，报告420组。
+
+prepare复制并绑定完整E1.1证据，不编码、不拟合尺度或分类器。每次run只用当前15段支持估计各块mean与中心化RMS范数scale；scale<=1e-6记录批次失败。scalers.npz保存float64的block_mean与block_scale；V1_lambda2为空参数表。scaling.json保存scaler_fit_ids、块维数、变换前后平均中心化平方范数，明确post_fusion_row_l2=false。融合concat/sqrt2，不使用开发数据拟合、不做逐维白化或再次逐行L2。变换依赖支持集合，不生成一个共用全局归一化库。
+
+缓存与批次均保存parent/完整证据；新批次额外保存源代码/环境、240个模型及支持表、精确预测、配置、尺度和各文件SHA。汇总从父原特征与支持集合独立重算参数，再核验模型前向、真值和指标。随机控制仍先在支持内平均5次指标，再跨10支持计算样本SD。输出14条件汇总、140支持级指标、120配对差值、35逐控制汇总、350逐块尺度诊断；真实50视频共有21,000条重复预测。
+
+audit读取E1.1既有180行材料，验证父证据/模板/图片/帧ID/分数；仅human字段允许修改。present/absent/uncertain必须带reviewer、时区时间与证据；未完成时不输出分数排序结论。人工表不进入拟合或概念选择；可选附加到模型报告并快照当时审核CSV、模板、导出清单。详见[E1.2指南](E12_GUIDE.md)。
+
+## 13. E1.3 类别文本与原型契约
+
+脚本12和固定e13.class-text.yaml。使用完整E1.2父批次的E1祖先Z及编码器身份；q=unit(mean16Z)，五条固定类文本E由同一原生CLIP编码并核验tokenizer/参数冻结，T=unit(E)。缓存保存q/E/T/Q/D/wrong_text_rows，E为float32、错配表int64，其余float64，绑定原文本数组SHA与父/代码/环境条件；加载重算q/T/Q/D，不重新编码文本。
+
+T0仅一次k0/support_seed=null且无support，prototypes=T，visual_prototypes为空(0,d)。P0/P1/P2各10组原3-shot支持集合，P3五旋转×10共50组；总81评估、无梯度训练。P0=unit(每类3段支持q均值)，P1=unit(P0+T)，P2固定类文本行映射[1,2,3,4,0]，P3=unit(P0+T@Q)。全部同d维余弦分类，查询真值只计算指标。
+
+每次保存原型、精确支持表、分数/指标、配置、来源/输入身份与哈希。完整批次快照原E1.2与新代码/环境/缓存，汇总重建模型和前向。缺失条件/错误参数/不匹配预测拒绝。输出81单次、5汇总、40支持级、60配对、5逐旋转，真实50视频为4050条重复预测。T0无支持SD；P3先支持内平均旋转，再跨支持SD；与T0配对不虚构零样本重复。详见[E1.3指南](E13_GUIDE.md)。
+
+## 14. E1.4 文本锚与视觉分数校正契约
+
+脚本13、固定e14.text-anchor.yaml，输入完整成功E1.3。原q/T/Q、类描述、3-shot/10support种子/开发ID不改，不重新编码。A1用qT+1*qp，主A2用qT+0.1*qp；A3只错配视觉p行[1,2,3,4,0]，A4只旋转视觉p@Q（5种子），文本T不动。不做合成权重／分数归一化、softmax或温度。新增80评估，引用T0一次与P0/P1各10，共101组。
+
+prepare仅复制并绑定原E1.3证据树，不评估；run保存text_prototypes/visual_prototypes/auxiliary_prototypes/score_weights四个float64数组及text_score/auxiliary_score/score三组逐类分数，最终分数允许超出[-1,1]。记录实际lambda、支持来源/ID、配置、模型、指标和文件SHA。摘要前独立重建模型与各分支分数，核对text_score与原T0一致、保存分数的加法关系和原真值/指标；仅改SHA不能绕过。
+
+报告7条件、101单次、60支持级、100配对、5逐旋转、100逐次T0错误转换及6组转换汇总；真实50段开发为5050重复预测。A4指标和转换计数先支持内平均再跨10support统计。T0不复制为10次独立零样本。参考行新增分支字段留空，保留原预测含义。探索门槛>=2pp/8正且优于两错误控制，只供研究决策。原代码和结果保留，最终测试封存。详见[E1.4指南](E14_GUIDE.md)。

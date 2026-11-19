@@ -1,0 +1,16 @@
+experiment_id: e13_class_text_prototypes
+version: 1
+classes: [clap, jump, run, walk, wave]
+prompts:
+  - a photo of a person clapping.
+  - a photo of a person jumping.
+  - a photo of a person running.
+  - a photo of a person walking.
+  - a photo of a person waving.
+shots: [3]
+support_seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+rotation_seeds: [0, 1, 2, 3, 4]
+wrong_text_rows: [1, 2, 3, 4, 0]
+fusion: unit_visual_plus_unit_text_then_unit
+video_pool: unit_mean_16_unit_frames
+final_test_enabled: false

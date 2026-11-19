@@ -1,0 +1,16 @@
+experiment_id: e14_text_anchor_scores
+version: 1
+shots: [3]
+support_seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+rotation_seeds: [0, 1, 2, 3, 4]
+lambdas:
+  A1: 1.0
+  A2: 0.1
+  A3: 0.1
+  A4: 0.1
+wrong_visual_rows: [1, 2, 3, 4, 0]
+score_rule: text_plus_lambda_auxiliary_no_normalization
+final_test_enabled: false
+continuation:
+  min_macro_f1_gain: 0.02
+  min_positive_supports: 8
