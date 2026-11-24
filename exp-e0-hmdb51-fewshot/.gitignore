@@ -92,3 +92,8 @@ reports/e13-*/
 .e14-backup/
 artifacts/e14_text_anchor/
 reports/e14-*/
+
+# E1.5 local input snapshots and generated instance-cache reports
+.e15-backup/
+artifacts/e15_instance_cache/
+reports/e15-*/

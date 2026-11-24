@@ -137,3 +137,15 @@ T0仅一次k0/support_seed=null且无support，prototypes=T，visual_prototypes�
 prepare仅复制并绑定原E1.3证据树，不评估；run保存text_prototypes/visual_prototypes/auxiliary_prototypes/score_weights四个float64数组及text_score/auxiliary_score/score三组逐类分数，最终分数允许超出[-1,1]。记录实际lambda、支持来源/ID、配置、模型、指标和文件SHA。摘要前独立重建模型与各分支分数，核对text_score与原T0一致、保存分数的加法关系和原真值/指标；仅改SHA不能绕过。
 
 报告7条件、101单次、60支持级、100配对、5逐旋转、100逐次T0错误转换及6组转换汇总；真实50段开发为5050重复预测。A4指标和转换计数先支持内平均再跨10support统计。T0不复制为10次独立零样本。参考行新增分支字段留空，保留原预测含义。探索门槛>=2pp/8正且优于两错误控制，只供研究决策。原代码和结果保留，最终测试封存。详见[E1.4指南](E14_GUIDE.md)。
+
+## 15. E1.5 实例缓存与匹配压缩对照契约
+
+脚本14、固定e15.instance-cache.yaml，以完整成功E1.4为父批次。复用原q/T、五类顺序、3-shot×10支持集合和50段开发视频；不重新编码、不训练参数、不增加标注。alpha=0.1、beta=5.5和按类平均票数为事前固定约定，不是开发集搜索结果，也不声称与E1.4辅助分数尺度匹配。
+
+IC1保留15个原支持视频q作为键，原标签作为one-hot值；IC2将每个键替换为其原类别的单位均值原型，仍为15槽、每类3槽，使用相同核、系数和分母；IC3键与IC1一致，仅cache_label=(true_label+1)mod5，保存原真实标签。每个查询对每键的affinity=exp(-5.5*(1-q·key))，vote=affinity/3；按cache_label累加得cache_score，final_score=qT+0.1*cache_score。不做softmax、最终归一化、温度、top-k或参数搜索。
+
+新增IC1/IC2/IC3各10评估，引用T0一次及A2十次，共41记录、2050重复预测。T0无支持SD且不伪造重复；A2与新条件严格按原支持ID/SHA配对。模型保存text_prototypes、visual_prototypes、support_keys、cache_keys、true_labels、cache_labels、cache_values；cache_evidence.npz精确字段为query_ids、support_ids、cosine_similarities、affinities、votes，三个数值矩阵为50×15，行顺序为evaluation_ids，列顺序为support_set.csv。IC2槽仍有原支持ID，但实际键已是类均值；均值单位化也改变键方向和查询投影，不将IC1−IC2排他解释为多模态信息损失。每次另存分离的text/cache/final逐类分数、指标、原支持表、配置与来源/代码/环境身份。统一预测表头记录alpha/beta/lambda；新IC条件lambda及auxiliary_score为空，引用A2保留原lambda与auxiliary_score，引用条件无新缓存分数时留空。
+
+prepare仅独立快照父证据，不评估；汇总从父q/T和原支持重建全部模型、每支持票数及分支分数，验证文本与原T0一致、完整网格、原真值、指标和文件身份，拒绝仅更新SHA的损坏产物。输出5条件汇总、41单次指标及相同支持集合的配对/错误转换分析；引用行没有新缓存分支或票数时留空，不把原A2的auxiliary_score重命名为cache_score。
+
+主比较IC1−T0/IC2/IC3；次要IC1−A2、IC2−A2、IC2−T0、IC3−T0。探索性继续要求IC1−T0平均Macro-F1>=0.02、至少8组正且高于两匹配对照均值，不代替显著性或独立泛化。正式CLI拒绝合成特征且只有development；旧实现、正式输入和最终测试保留。详见[E1.5指南](E15_GUIDE.md)。
