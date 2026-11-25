@@ -97,3 +97,18 @@ reports/e14-*/
 .e15-backup/
 artifacts/e15_instance_cache/
 reports/e15-*/
+
+# E2.0 local human review identities, images, judgments and reports
+data/e20_audits/
+reports/e20-*/
+.e20-backup/
+
+# E2.0-R local cohort identities, images, scores, reviews and reports
+data/e20r_plans/
+data/e20r_audits/
+reports/e20r-*/
+
+# E2.0-R2 private target boxes, audits, features and reports
+data/e20r2_runs/
+data/e20r2_audits/
+reports/e20r2-*/

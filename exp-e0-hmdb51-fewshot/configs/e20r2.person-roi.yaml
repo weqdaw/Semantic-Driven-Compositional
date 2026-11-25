@@ -1,0 +1,12 @@
+experiment_id: e20r2_person_roi
+version: 1
+evaluation_stage: development
+final_test_enabled: false
+concept_ids: [pose01, pose02, pose03, pose04, pose06, pose14]
+views: [native, letterbox, roi]
+roi_padding_fraction: 0.10
+min_target_height_px: 80
+calibration_videos: 12
+seed: 20261124
+target_rule: per_frame_largest_visible_person_then_leftmost_fixed_across_views
+frame_selection: fixed_parent60
